@@ -8,28 +8,30 @@
 
 USE labcontrol_db;
 
+-- =====================================================
+-- PROJETO LABCONTROL
+-- Script 05 - Exclusao controlada de registros
+-- =====================================================
+
+USE labcontrol_db;
+
 START TRANSACTION;
 
--- 1. Excluir o resultado do exame.
-
+-- Excluir resultado do exame.
 DELETE FROM RESULTADO_DE_EXAME
 WHERE id_resultado = 5;
 
-
--- 2. Excluir a amostra biologica.
-
+-- Excluir amostra biologica.
 DELETE FROM AMOSTRA_BIOLOGICA
 WHERE id_amostra = 5;
 
-
--- 3. Excluir a coleta sem amostras vinculadas.
-
+-- Excluir coleta.
 DELETE FROM COLETA
 WHERE id_coleta = 5;
 
-
--- Confirmar as exclusoes realizadas.
+-- Corrigir o status da solicitacao.
+UPDATE SOLICITACAO_DE_EXAME
+SET status = 'Pendente'
+WHERE id_solicitacao = 5;
 
 COMMIT;
-
--- Fim do script de exclusao do LabControl.
